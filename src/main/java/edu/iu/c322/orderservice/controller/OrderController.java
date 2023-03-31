@@ -1,6 +1,7 @@
 package edu.iu.c322.orderservice.controller;
 
 import edu.iu.c322.orderservice.model.Order;
+import edu.iu.c322.orderservice.model.Refund;
 import edu.iu.c322.orderservice.repository.OrderRepository;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class OrderController {
     }
     @GetMapping("/{id}")
     public Order findByCustomerId(@PathVariable int id){
-        return repository.findByCustomerId(id);
+        return repository.findByOrderId(id);
     }
 
     @PostMapping
@@ -23,10 +24,10 @@ public class OrderController {
         return repository.create(order);
     }
 
-//    @PutMapping("/return")
-//    public void update(@Valid @RequestBody Order order, @PathVariable int id){
-//        repository.update(order, id);
-//    }
+    @PutMapping("/return")
+    public void update(@Valid @RequestBody Refund refund){
+        repository.update(refund);
+    }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable int id){

@@ -7,6 +7,7 @@ import java.util.Objects;
 public class Item {
     @NotEmpty(message = "name cannot be empty.")
     private String name;
+    private int itemId;
     private int quantity;
     private int price;
 
@@ -17,6 +18,15 @@ public class Item {
     public void setName(String name) {
         this.name = name;
     }
+
+    public int getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
+
 
     public int getPrice() {
         return price;
@@ -39,11 +49,11 @@ public class Item {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
-        return quantity == item.quantity && price == item.price && name.equals(item.name);
+        return quantity == item.quantity && itemId == item.itemId && price == item.price && name.equals(item.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, quantity, price);
+        return Objects.hash(name, itemId, quantity, price);
     }
 }
