@@ -3,8 +3,8 @@ package edu.iu.c322.orderservice.model;
 import java.util.Objects;
 
 public class Refund {
-    int orderId;
-    int itemId;
+    int order_id;
+    int item_id;
     String reason;
 
     @Override
@@ -12,28 +12,28 @@ public class Refund {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Refund aReturn = (Refund) o;
-        return orderId == aReturn.orderId && itemId == aReturn.itemId && reason.equals(aReturn.reason);
+        return order_id == aReturn.order_id && item_id == aReturn.item_id && reason.equals(aReturn.reason);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, itemId, reason);
+        return Objects.hash(order_id, item_id, reason);
     }
 
-    public int getOrderId() {
-        return orderId;
+    public int getOrder_id() {
+        return order_id;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setOrder_id(int order_id) {
+        this.order_id = order_id;
     }
 
-    public int getItemId() {
-        return itemId;
+    public int getItem_id() {
+        return item_id;
     }
 
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
+    public void setItem_id(int item_id) {
+        this.item_id = item_id;
     }
 
     public String getReason() {

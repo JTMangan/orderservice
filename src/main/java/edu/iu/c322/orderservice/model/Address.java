@@ -1,13 +1,16 @@
 package edu.iu.c322.orderservice.model;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.persistence.*;
 
 import java.util.Objects;
-
+@Entity
 public class Address {
-    @NotEmpty(message = "state cannot be empty.")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    int id;
+
     private String state;
-    @NotEmpty(message = "city cannot be empty.")
+
     private String city;
     private int postalCode;
 
@@ -40,7 +43,7 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return postalCode == address.postalCode && state.equals(address.state) && city.equals(address.city);
+        return postalCode == address.postalCode && state.equals(address.state) && city.equals(address.city) && id == address.id;
     }
 
     @Override

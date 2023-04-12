@@ -1,25 +1,35 @@
 package edu.iu.c322.orderservice.model;
 
+import jakarta.persistence.*;
 import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class Order {
-    private int orderId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    private int customerId;
     private float total;
-    @Valid
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="address_id")
     private Address shippingAddress;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<Item> items;
-    @Valid
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="payment_id")
     private Payment payment;
 
     public int getOrderId() {
-        return orderId;
+        return id;
     }
 
     public void setOrderId(int orderId) {
-        this.orderId = orderId;
+        this.id = orderId;
     }
 
     public float getTotal() {
@@ -55,7 +65,7 @@ public class Order {
     }
 
     public void refundItem(int itemId, String reason){
-        Item item = items.stream().filter(x -> x.getItemId() == itemId).findAny().orElse(null);
+        Item item = items.stream().filter(x -> x.getId() == itemId).findAny().orElse(null);
         if(item != null){
             System.out.println(item.getName() + " is being refunded for $" + (item.getPrice()*item.getQuantity()));
             System.out.println("Refund reason: " + reason);
@@ -70,11 +80,11 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return orderId == order.orderId && Float.compare(order.total, total) == 0 && shippingAddress.equals(order.shippingAddress) && items.equals(order.items) && payment.equals(order.payment);
+        return id == order.id && customerId == order.customerId && Float.compare(order.total, total) == 0 && shippingAddress.equals(order.shippingAddress) && items.equals(order.items) && payment.equals(order.payment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, total, shippingAddress, items, payment);
+        return Objects.hash(customerId, total, shippingAddress, items, payment);
     }
 }

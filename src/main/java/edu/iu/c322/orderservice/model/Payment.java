@@ -1,16 +1,21 @@
 package edu.iu.c322.orderservice.model;
 
+import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.util.Objects;
 
+@Entity
 public class Payment {
-    @NotEmpty(message = "method cannot be empty.")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
     private String method;
-    @NotEmpty(message = "number cannot be empty.")
     private String number;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="address_id")
     private Address billingAddress;
 
     public String getMethod() {
@@ -47,6 +52,6 @@ public class Payment {
 
     @Override
     public int hashCode() {
-        return Objects.hash(method, number, billingAddress);
+        return Objects.hash(id, method, number, billingAddress);
     }
 }
