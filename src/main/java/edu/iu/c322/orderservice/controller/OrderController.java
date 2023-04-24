@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
@@ -18,6 +18,11 @@ public class OrderController {
 
     public OrderController(OrderRepository repository){
         this.repository = repository;
+    }
+
+    @GetMapping
+    public List<Order> findAll(){
+        return repository.findAll();
     }
     @GetMapping("/order/{id}")
     public Optional<Order> findByOrderId(@PathVariable int id){
